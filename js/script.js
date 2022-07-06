@@ -44,12 +44,38 @@ addPlaceholders(word);
 
 //==========================================================
 
+const validateInput = function (input) {
+  const acceptedLetter = /[a-zA-Z]/;
+
+  if (input.length === 0) {
+    message.innerText = "Please enter a letter.";
+  } else if (input.length > 1) {
+    message.innerText = "One letter at a time, please!";
+  } else if (!input.match(acceptedLetter)) {
+    message.innerText = "That's not a letter and you know it.";
+  } else {
+    return input;
+  };
+
+};
+
+//==========================================================
+
 //Adds an event listener for the Guess Button
 
 guessButton.addEventListener("click", function (e) {
+    //Prevents page reloading when form is submitted
     e.preventDefault();
 
-    const inputValue = letterInput.value;
-    console.log(inputValue);
+    //Clears message field
+    message.innerText = "";
+
+
+    //Clears input field
+    const usersGuess = letterInput.value;
     letterInput.value = "";
+
+    //Validates that user's guess is a single letter
+    const validatedGuess = validateInput(usersGuess);
+    console.log(validatedGuess);
 });
