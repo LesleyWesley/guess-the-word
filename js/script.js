@@ -72,9 +72,50 @@ const makeGuess = function (usersGuess) {
       message.innerText = "You've already guessed that letter! Why don't you try a new one?";
     } else {
       guessedLetters.push(usersGuess);
+      showGuessedLetters();
       console.log(guessedLetters);
+      updateWordInProgress(guessedLetters);
     }
 
+};
+
+//==========================================================
+
+//Updates the page with the letters the player has already guessed
+
+const showGuessedLetters = function () {
+  guessedLettersList.innerHTML = "";
+
+  for (let letter of guessedLetters) {
+      const li = document.createElement("li");
+      li.innerText = `${letter}`;
+      guessedLettersList.append(li);
+  };
+};
+
+//==========================================================
+
+//Updates the word in progress display if the word contains the guessed letter
+
+const updateWordInProgress = function (guessedLetters) {
+    const wordUpper = word.toUpperCase();
+    const wordArray = wordUpper.split("");
+    console.log(wordArray);
+
+    const updatedWord = [];
+
+    for (let letter of wordArray) {
+      if (guessedLetters.includes(letter)) {
+        updatedWord.push(letter);
+      } else {
+        updatedWord.push("●");
+      }
+      console.log(updatedWord);
+    }
+
+    const updatedWordString = updatedWord.join("");
+    console.log(updatedWordString);
+    wordInProgressDisplay.innerText = `${updatedWordString}`;
 };
 
 //==========================================================
