@@ -1,5 +1,5 @@
 //Selects the unordered list where player's guessed letters appear
-const guessedLetters = document.querySelector(".guessed-letters");
+const guessedLettersList = document.querySelector(".guessed-letters");
 
 //Selects "Guess!" button
 const guessButton = document.querySelector(".guess");
@@ -23,6 +23,8 @@ const message = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
 
 const word = "magnolia";
+
+const guessedLetters = [];
 
 //===========================================================
 
@@ -55,7 +57,23 @@ const validateInput = function (input) {
     message.innerText = "That's not a letter and you know it.";
   } else {
     return input;
-  };
+  }
+
+};
+
+//==========================================================
+
+//Captures input
+
+const makeGuess = function (usersGuess) {
+
+    usersGuess = usersGuess.toUpperCase();
+    if (guessedLetters.includes(usersGuess)) {
+      message.innerText = "You've already guessed that letter! Why don't you try a new one?";
+    } else {
+      guessedLetters.push(usersGuess);
+      console.log(guessedLetters);
+    }
 
 };
 
@@ -70,12 +88,16 @@ guessButton.addEventListener("click", function (e) {
     //Clears message field
     message.innerText = "";
 
-
-    //Clears input field
     const usersGuess = letterInput.value;
-    letterInput.value = "";
 
     //Validates that user's guess is a single letter
     const validatedGuess = validateInput(usersGuess);
     console.log(validatedGuess);
+
+    if (validatedGuess) {
+      makeGuess(usersGuess);
+    };
+
+    letterInput.value = "";
+
 });
