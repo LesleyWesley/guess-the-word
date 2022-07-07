@@ -26,6 +26,8 @@ const word = "magnolia";
 
 const guessedLetters = [];
 
+let remainingGuesses = 8;
+
 //===========================================================
 
 //Adds placeholders for each letter
@@ -74,6 +76,7 @@ const makeGuess = function (usersGuess) {
       guessedLetters.push(usersGuess);
       showGuessedLetters();
       console.log(guessedLetters);
+      countGuesses(usersGuess);
       updateWordInProgress(guessedLetters);
     }
 
@@ -118,6 +121,30 @@ const updateWordInProgress = function (guessedLetters) {
     wordInProgressDisplay.innerText = `${updatedWordString}`;
 
     checkWin();
+};
+
+//==========================================================
+
+//Keeps track of remaining guesses
+
+const countGuesses = function (guess) {
+    const upperWord = word.toUpperCase();
+
+    if (!upperWord.includes(guess)) {
+      message.innerText = "Sorry, that letter isn't in this word :(";
+      remainingGuesses -= 1;
+    } else {
+      message.innerText = "Good job!  That letter is in the word! :)";
+    };
+
+    if (remainingGuesses === 0) {
+      message.innerText = `Game over. The word was ${upperWord}.`;
+      remainingGuessesParagraph.innerText = "No guesses remaining."
+    } else if (remainingGuesses === 1) {
+      remainingGuessesSpan.innerText = "only 1 guess";
+    } else {
+      remainingGuessesSpan.innerText = `${remainingGuesses} guesses`;
+    }
 };
 
 //==========================================================
