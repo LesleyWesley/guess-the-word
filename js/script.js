@@ -116,6 +116,19 @@ const updateWordInProgress = function (guessedLetters) {
     const updatedWordString = updatedWord.join("");
     console.log(updatedWordString);
     wordInProgressDisplay.innerText = `${updatedWordString}`;
+
+    checkWin();
+};
+
+//==========================================================
+
+//Checks to see if player won the game
+
+const checkWin = function () {
+    if (wordInProgressDisplay.innerText === word.toUpperCase()) {
+      message.classList.add("win");
+      message.innerHTML = `<p class="highlight">You guessed the correct word! Congrats!</p>`;
+    }
 };
 
 //==========================================================
