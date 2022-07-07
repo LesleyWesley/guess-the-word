@@ -22,11 +22,29 @@ const message = document.querySelector(".message");
 //Selects "Play Again" button
 const playAgainButton = document.querySelector(".play-again");
 
-const word = "magnolia";
+let word = "magnolia";
 
 const guessedLetters = [];
 
 let remainingGuesses = 8;
+
+//===========================================================
+
+//Chooses a random word from a .txt file
+
+const getWord = async function () {
+  const data = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
+  const parsedData = await data.text();
+
+  const wordArray = parsedData.split("\n");
+
+  const randomIndex = Math.floor(Math.random() * wordArray.length);
+  const randomWord = wordArray[randomIndex].trim();
+  word = randomWord;
+  addPlaceholders(word);
+}
+
+getWord();
 
 //===========================================================
 
@@ -44,7 +62,6 @@ const addPlaceholders = function (word) {
   wordInProgressDisplay.innerText = `${placeholderString}`;
 };
 
-addPlaceholders(word);
 
 //==========================================================
 
